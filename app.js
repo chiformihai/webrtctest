@@ -62,6 +62,29 @@ io.on('connection', function(socket){
     socket.room = name;
   });
 
+  socket.on('offer', function(data) {
+    data.from = socket.id;
+    var to = io.sockets.connected[data.to];
+    to.emit('offer', data);
+  });
+
+  socket.on('answer', function(data) {
+    data.from = socket.id;
+    var to = io.sockets.connected[data.to];
+    to.emit('answer', data);
+  });
+
+  socket.on('candidate', function(data) {
+    data.from = socket.id;
+    var to = io.sockets.connected[data.to];
+    to.emit('candidate', data);
+  });
+
+  socket.on('connectionAccepted', function(data) {
+    data.from = socket.id;
+    var to = io.sockets.connected[data.to];
+    to.emit('connectionAccepted', data);
+  });
 
   socket.on('exchange', function(data){
     console.log('exchange', data);
