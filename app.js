@@ -86,10 +86,4 @@ io.on('connection', function(socket){
     to.emit('connectionAccepted', data);
   });
 
-  socket.on('exchange', function(data){
-    console.log('exchange', data);
-    data.from = socket.id;
-    var to = io.sockets.connected[data.to];
-    to.emit('exchange', data);
-  });
 });
