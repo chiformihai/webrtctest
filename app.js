@@ -17,6 +17,7 @@ if (process.env.LOCAL) {
 }
 var io = require('socket.io')(server);
 
+const connectedUsersRoom = 'connectedUsers';
 var roomList = {};
 
 app.get('/', function(req, res){
@@ -45,6 +46,14 @@ function socketIdsInRoom(name) {
 
 io.on('connection', function(socket){
   console.log('connection');
+
+  socket.on('connect', function() {
+    // associate socket.id with
+    io.to(connectedUsersRoom).emit('connectedUser', socket.id);
+    socket.join(connectedUsersRoom);
+    socket.emit('test', socket.handshake);
+  });
+
   socket.on('disconnect', function(){
     console.log('disconnect');
     if (socket.room) {
