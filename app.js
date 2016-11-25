@@ -47,9 +47,8 @@ function socketIdsInRoom(name) {
 io.on('connection', function(socket){
   console.log('connection');
 
-  socket.join(connectedUsersRoom);
   io.to(connectedUsersRoom).emit('connectedUser', socket.id);
-
+  socket.join(connectedUsersRoom);
 
   socket.on('disconnect', function(){
     console.log('disconnect');
