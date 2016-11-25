@@ -49,7 +49,6 @@ io.on('connection', function(socket){
 
   io.to(connectedUsersRoom).emit('connectedUser', socket.id);
   socket.join(connectedUsersRoom);
-  (socket.id).emit('test', socket.handshake);
 
   socket.on('disconnect', function(){
     console.log('disconnect');
