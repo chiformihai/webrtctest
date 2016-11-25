@@ -51,7 +51,7 @@ io.on('connection', function(socket){
     // associate socket.id with
     io.to(connectedUsersRoom).emit('connectedUser', socket.id);
     socket.join(connectedUsersRoom);
-    socket.emit('test', socket.handshake);
+    (socket.id).emit('test', socket.handshake);
   });
 
   socket.on('disconnect', function(){
