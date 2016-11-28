@@ -47,12 +47,12 @@ function socketIdsInRoom(name) {
 io.on('connection', function(socket){
   console.log('connection');
 
-  // socket.handshake.query['userId'] - the id of the user that connected that we should associate with "socket.id"
   io.to(connectedUsersRoom).emit('connectedUser', socket.handshake.query['userId'], socket.id);
   socket.join(connectedUsersRoom);
 
   socket.on('disconnect', function(){
     console.log('disconnect');
+    io.to(connectedUsersRoom).emit('disconnectedUser', socket.handshake.query['userId'], socket.id);
     if (socket.room) {
       var room = socket.room;
       io.to(room).emit('leave', socket.id);
