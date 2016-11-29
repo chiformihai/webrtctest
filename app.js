@@ -66,6 +66,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('intiateCall', function(socketId, roomId, videoEnabled) {
+    var callData = {};
     callData.from = socket.id;
     callData.videoEnabled = videoEnabled;
     callData.roomId = roomId;
