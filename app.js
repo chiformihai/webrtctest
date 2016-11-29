@@ -70,7 +70,7 @@ io.on('connection', function(socket){
     callData.from = socket.id;
     callData.videoEnabled = videoEnabled;
     callData.roomId = roomId;
-    socketId.emit('callRequest', callData);
+    io.sockets.connected[socketId].emit('callRequest', callData);
   });
 
   socket.on('callResponse', function(accepted, socketId, roomId) {
@@ -78,7 +78,8 @@ io.on('connection', function(socket){
       io.sockets.connected[socketId].join(roomId);
       socket.join(roomId);
     }
-    socketId.emit('callResponse', accepted, socketId);
+    var data = { accepted: accepted, socketId: socket.id};
+    io.sockets.connected[socketId].emit('callResponse', data);
   });
 
   socket.on('offer', function(data) {
