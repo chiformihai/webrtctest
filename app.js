@@ -65,13 +65,10 @@ io.on('connection', function(socket){
     socket.join(name);
   });
 
-  socket.on('initiateCall', function(socketId, roomId, videoEnabled) {
-    var callData = {
-      callerSocketId: socketId,
-      videoEnabled: videoEnabled,
-      roomId: roomId,
-    };
-    io.sockets.connected[socketId].emit('callRequest', callData);
+  socket.on('initiateCall', function(data) {
+    data.from = socket.id;
+    var to = io.sockets.connected[data.to];
+    to.emit('callRequest', data);
   });
 
   socket.on('callResponse', function(accepted, socketId, roomId) {
