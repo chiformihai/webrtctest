@@ -71,13 +71,13 @@ io.on('connection', function(socket){
     to.emit('callRequest', data);
   });
 
-  socket.on('callResponse', function(accepted, socketId, roomId) {
-    if (accepted) {
-      io.sockets.connected[socketId].join(roomId);
-      socket.join(roomId);
+  socket.on('callResponse', function(data) {
+    if (data.accepted) {
+      var callerSocket = io.sockets.connected[data.callerSocketId];
+      callerSocket.join(data.roomId);
+      socket.join(data.roomId);
     }
-    var data = { accepted: accepted, socketId: socket.id};
-    io.sockets.connected[socketId].emit('callResponse', data);
+    io.sockets.connected[data.callerSocketId].emit('callResponse', data);
   });
 
   socket.on('offer', function(data) {
