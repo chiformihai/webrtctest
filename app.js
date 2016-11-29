@@ -18,14 +18,11 @@ if (process.env.LOCAL) {
 var io = require('socket.io')(server);
 
 const connectedUsersRoom = 'connectedUsers';
-var roomList = {};
 
 app.get('/', function(req, res){
-  console.log('get /');
   res.sendFile(__dirname + '/index.html');
 });
 server.listen(serverPort, function(){
-  console.log('server up and running at %s port', serverPort);
   if (process.env.LOCAL) {
     open('https://localhost:' + serverPort)
   }
@@ -45,27 +42,42 @@ function socketIdsInRoom(name) {
 }
 
 io.on('connection', function(socket){
-  console.log('connection');
 
   io.to(connectedUsersRoom).emit('connectedUser', socket.handshake.query['userId'], socket.id);
   socket.join(connectedUsersRoom);
 
   socket.on('disconnect', function(){
-    console.log('disconnect');
     io.to(connectedUsersRoom).emit('disconnectedUser', socket.handshake.query['userId'], socket.id);
-    if (socket.room) {
-      var room = socket.room;
-      io.to(room).emit('leave', socket.id);
-      socket.leave(room);
+    socket.leave(connectedUsersRoom);
+
+    var rooms = io.nsps['/'].adapter.rooms;
+    for (const room in rooms) {
+      if (room !== connectedUsersRoom) {
+        io.to(room).emit('leave', socket.id);
+        socket.leave(room);
+      }
     }
   });
 
   socket.on('join', function(name, callback){
-    console.log('join', name);
     var socketIds = socketIdsInRoom(name);
     callback(socketIds);
     socket.join(name);
-    socket.room = name;
+  });
+
+  socket.on('intiateCall', function(socketId, roomId, videoEnabled) {
+    callData.from = socket.id;
+    callData.videoEnabled = videoEnabled;
+    callData.roomId = roomId;
+    socketId.emit('callRequest', callData);
+  });
+
+  socket.on('callResponse', function(accepted, socketId, roomId) {
+    if (accepted) {
+      io.sockets.connected[socketId].join(roomId);
+      socket.join(roomId);
+    }
+    socketId.emit('callResponse', accepted, socketId);
   });
 
   socket.on('offer', function(data) {
