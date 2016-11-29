@@ -66,10 +66,11 @@ io.on('connection', function(socket){
   });
 
   socket.on('initiateCall', function(socketId, roomId, videoEnabled) {
-    var callData = {};
-    callData.from = socket.id;
-    callData.videoEnabled = videoEnabled;
-    callData.roomId = roomId;
+    var callData = {
+      callerSocketId: socketId,
+      videoEnabled: videoEnabled,
+      roomId: roomId,
+    };
     io.sockets.connected[socketId].emit('callRequest', callData);
   });
 
