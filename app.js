@@ -18,6 +18,7 @@ if (process.env.LOCAL) {
 var io = require('socket.io')(server);
 
 const connectedUsersRoom = 'connectedUsers';
+var connectedUsers = {};
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
@@ -43,11 +44,14 @@ function socketIdsInRoom(name) {
 
 io.on('connection', function(socket){
 
-  io.to(connectedUsersRoom).emit('connectedUser', socket.handshake.query['userId'], socket.id);
+  var userId = socket.handshake.query['userId'];
+  connectedUsers[userId] = socket.id;
+  io.to(connectedUsersRoom).emit('connectedUser', userId);
   socket.join(connectedUsersRoom);
 
   socket.on('disconnect', function(){
-    io.to(connectedUsersRoom).emit('disconnectedUser', socket.handshake.query['userId'], socket.id);
+    delete connectedUsers[userId];
+    io.to(connectedUsersRoom).emit('disconnectedUser', userId);
     socket.leave(connectedUsersRoom);
 
     var rooms = io.nsps['/'].adapter.rooms;
@@ -67,7 +71,8 @@ io.on('connection', function(socket){
 
   socket.on('initiateCall', function(data) {
     data.from = socket.id;
-    var to = io.sockets.connected[data.to];
+    var calledUserId = data.to;
+    var to = connectedUsers[calledUserId];
     to.emit('callRequest', data);
   });
 
