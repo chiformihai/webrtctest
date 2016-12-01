@@ -72,7 +72,7 @@ io.on('connection', function(socket){
   socket.on('initiateCall', function(data) {
     data.from = socket.id;
     var calledUserId = data.to;
-    var to = connectedUsers[calledUserId];
+    var to = io.sockets.connected[connectedUsers[calledUserId]];
     to.emit('callRequest', data);
   });
 
@@ -102,12 +102,6 @@ io.on('connection', function(socket){
     data.from = socket.id;
     var to = io.sockets.connected[data.to];
     to.emit('candidate', data);
-  });
-
-  socket.on('connectionAccepted', function(data) {
-    data.from = socket.id;
-    var to = io.sockets.connected[data.to];
-    to.emit('connectionAccepted', data);
   });
 
 });
