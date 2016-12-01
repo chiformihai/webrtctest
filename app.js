@@ -72,8 +72,13 @@ io.on('connection', function(socket){
   socket.on('initiateCall', function(data) {
     data.from = socket.id;
     var calledUserId = data.to;
-    var to = io.sockets.connected[connectedUsers[calledUserId]];
-    to.emit('callRequest', data);
+    var calledSocketId = connectedUsers[calledUserId];
+    if (calledUserId) { // user is inside app
+      var to = io.sockets.connected[calledSocketId];
+      to.emit('callRequest', data);
+    } else {
+      // send push notification
+    }
   });
 
   socket.on('callResponse', function(data) {
