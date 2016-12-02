@@ -91,6 +91,12 @@ io.on('connection', function(socket){
     callerSocket.emit('callResponse', data);
   });
 
+  socket.on('endCall', function(data) {
+    var to = io.sockets.connected[data.userId];
+    data.from = socket.id;
+    to.emit('callEnded', data);
+  });
+
   socket.on('offer', function(data) {
     data.from = socket.id;
     var to = io.sockets.connected[data.to];

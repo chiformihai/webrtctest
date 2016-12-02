@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="06ff55f1-ff7f-4877-ba26-86878844f809" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-    </list>
+    <list default="true" id="06ff55f1-ff7f-4877-ba26-86878844f809" name="Default" comment="" />
     <ignored path="react-native-webrtc-server-master.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -101,10 +99,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1440" />
-    <option name="y" value="-73" />
-    <option name="width" value="1424" />
-    <option name="height" value="1057" />
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="797" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -254,18 +251,18 @@
       <workItem from="1480012600853" duration="1190000" />
       <workItem from="1480074214151" duration="6095000" />
       <workItem from="1480318252905" duration="357000" />
-      <workItem from="1480319208676" duration="16415000" />
+      <workItem from="1480319208676" duration="16492000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49623000" />
+    <option name="totallyTimeSpent" value="49700000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1440" y="-73" width="1424" height="1057" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="797" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17961511" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17758985" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
