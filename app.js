@@ -92,7 +92,8 @@ io.on('connection', function(socket){
   });
 
   socket.on('endCall', function(data) {
-    var to = io.sockets.connected[data.userId];
+    var socketId = connectedUsers[data.userId];
+    var to = io.sockets.connected[socketId];
     data.from = socket.id;
     to.emit('callEnded', data);
   });
